@@ -742,11 +742,58 @@
       font-size: 18px;
     }
 
-    .review-grid {
-      grid-template-columns: 1.15fr repeat(2, 0.9fr);
+    .review-carousel {
+      position: relative;
+      overflow: hidden;
+      padding: 8px 0 18px;
+    }
+
+    .review-carousel::before,
+    .review-carousel::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+      width: 92px;
+      pointer-events: none;
+    }
+
+    .review-carousel::before {
+      left: 0;
+      background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0));
+    }
+
+    .review-carousel::after {
+      right: 0;
+      background: linear-gradient(270deg, #fff 0%, rgba(255, 255, 255, 0));
+    }
+
+    .review-track {
+      display: flex;
+      width: max-content;
+      gap: 18px;
+      animation: review-scroll 34s linear infinite;
+      will-change: transform;
+    }
+
+    .review-carousel:hover .review-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes review-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(-50% - 9px)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .review-track {
+        animation: none;
+      }
     }
 
     .quote {
+      width: clamp(280px, 32vw, 372px);
       min-height: 250px;
       display: flex;
       flex-direction: column;
@@ -999,6 +1046,15 @@
       .carousel-slide {
         height: 360px;
         min-height: 360px;
+      }
+
+      .review-carousel::before,
+      .review-carousel::after {
+        width: 36px;
+      }
+
+      .quote {
+        width: min(82vw, 330px);
       }
     }
 
@@ -1389,31 +1445,137 @@
           <h2>客户评价</h2>
           <p>真正的高级感，是宠物愿意再次进门，主人也清楚每一笔服务花在哪里。</p>
         </div>
-        <div class="review-grid">
-          <article class="card quote featured">
-            <div class="stars">★★★★★</div>
-            <p>“我家小狗以前很怕吹风，这次美容师一直安抚，洗完还主动摇尾巴。店里很干净，护理记录也说得很细。”</p>
-            <div class="customer">
-              <div class="avatar">可</div>
-              <div><strong>可可主人</strong><span>精致洗剪 · 小型犬</span></div>
-            </div>
-          </article>
-          <article class="card quote">
-            <div class="stars">★★★★★</div>
-            <p>“长毛猫开结很细心，没有硬扯。回家毛蓬蓬的，皮肤情况也讲得清楚。”</p>
-            <div class="customer">
-              <div class="avatar">糯</div>
-              <div><strong>糯米主人</strong><span>深层养护 · 长毛猫</span></div>
-            </div>
-          </article>
-          <article class="card quote">
-            <div class="stars">★★★★★</div>
-            <p>“预约准时，价格透明。剪出来不是千篇一律，真的有按狗狗脸型做调整。”</p>
-            <div class="customer">
-              <div class="avatar">豆</div>
-              <div><strong>豆豆主人</strong><span>造型修剪 · 泰迪</span></div>
-            </div>
-          </article>
+        <div class="review-carousel" aria-label="客户评价轮播">
+          <div class="review-track">
+            <article class="card quote featured">
+              <div class="stars">★★★★★</div>
+              <p>“我家小狗以前很怕吹风，这次美容师一直安抚，洗完还主动摇尾巴。店里很干净，护理记录也说得很细。”</p>
+              <div class="customer">
+                <div class="avatar">可</div>
+                <div><strong>可可主人</strong><span>精致洗剪 · 小型犬</span></div>
+              </div>
+            </article>
+            <article class="card quote">
+              <div class="stars">★★★★★</div>
+              <p>“长毛猫开结很细心，没有硬扯。回家毛蓬蓬的，皮肤情况也讲得清楚。”</p>
+              <div class="customer">
+                <div class="avatar">糯</div>
+                <div><strong>糯米主人</strong><span>深层养护 · 长毛猫</span></div>
+              </div>
+            </article>
+            <article class="card quote">
+              <div class="stars">★★★★★</div>
+              <p>“预约准时，价格透明。剪出来不是千篇一律，真的有按狗狗脸型做调整。”</p>
+              <div class="customer">
+                <div class="avatar">豆</div>
+                <div><strong>豆豆主人</strong><span>造型修剪 · 泰迪</span></div>
+              </div>
+            </article>
+            <article class="card quote">
+              <div class="stars">★★★★★</div>
+              <p>“第一次带胆小的猫出门洗护，本来很担心。工作人员会先让它熟悉环境，整个过程比我想象中温柔很多。”</p>
+              <div class="customer">
+                <div class="avatar">布</div>
+                <div><strong>布丁主人</strong><span>舒缓洗护 · 英短</span></div>
+              </div>
+            </article>
+            <article class="card quote">
+              <div class="stars">★★★★★</div>
+              <p>“洗完不是香味很冲的那种，毛很蓬松，抱起来干干净净。还提醒我耳朵要继续观察，挺负责的。”</p>
+              <div class="customer">
+                <div class="avatar">球</div>
+                <div><strong>球球主人</strong><span>基础洗护 · 柯基</span></div>
+              </div>
+            </article>
+            <article class="card quote">
+              <div class="stars">★★★★★</div>
+              <p>“我们家雪纳瑞胡子很容易洗不干净，这次修得很精神，边角也处理得很利落，拍照特别上镜。”</p>
+              <div class="customer">
+                <div class="avatar">摩</div>
+                <div><strong>摩卡主人</strong><span>精修造型 · 雪纳瑞</span></div>
+              </div>
+            </article>
+            <article class="card quote">
+              <div class="stars">★★★★★</div>
+              <p>“店员会提前确认是否有皮肤敏感和疫苗情况，洗护后还发了护理建议，感觉不是只做一次生意。”</p>
+              <div class="customer">
+                <div class="avatar">桃</div>
+                <div><strong>桃桃主人</strong><span>皮毛护理 · 比熊</span></div>
+              </div>
+            </article>
+            <article class="card quote">
+              <div class="stars">★★★★★</div>
+              <p>“老年狗腿脚不太方便，美容师动作很慢也很稳，全程有耐心。洗完精神状态很好，家里人都放心。”</p>
+              <div class="customer">
+                <div class="avatar">米</div>
+                <div><strong>米粒主人</strong><span>老年犬洗护 · 博美</span></div>
+              </div>
+            </article>
+            <article class="card quote featured" aria-hidden="true">
+              <div class="stars">★★★★★</div>
+              <p>“我家小狗以前很怕吹风，这次美容师一直安抚，洗完还主动摇尾巴。店里很干净，护理记录也说得很细。”</p>
+              <div class="customer">
+                <div class="avatar">可</div>
+                <div><strong>可可主人</strong><span>精致洗剪 · 小型犬</span></div>
+              </div>
+            </article>
+            <article class="card quote" aria-hidden="true">
+              <div class="stars">★★★★★</div>
+              <p>“长毛猫开结很细心，没有硬扯。回家毛蓬蓬的，皮肤情况也讲得清楚。”</p>
+              <div class="customer">
+                <div class="avatar">糯</div>
+                <div><strong>糯米主人</strong><span>深层养护 · 长毛猫</span></div>
+              </div>
+            </article>
+            <article class="card quote" aria-hidden="true">
+              <div class="stars">★★★★★</div>
+              <p>“预约准时，价格透明。剪出来不是千篇一律，真的有按狗狗脸型做调整。”</p>
+              <div class="customer">
+                <div class="avatar">豆</div>
+                <div><strong>豆豆主人</strong><span>造型修剪 · 泰迪</span></div>
+              </div>
+            </article>
+            <article class="card quote" aria-hidden="true">
+              <div class="stars">★★★★★</div>
+              <p>“第一次带胆小的猫出门洗护，本来很担心。工作人员会先让它熟悉环境，整个过程比我想象中温柔很多。”</p>
+              <div class="customer">
+                <div class="avatar">布</div>
+                <div><strong>布丁主人</strong><span>舒缓洗护 · 英短</span></div>
+              </div>
+            </article>
+            <article class="card quote" aria-hidden="true">
+              <div class="stars">★★★★★</div>
+              <p>“洗完不是香味很冲的那种，毛很蓬松，抱起来干干净净。还提醒我耳朵要继续观察，挺负责的。”</p>
+              <div class="customer">
+                <div class="avatar">球</div>
+                <div><strong>球球主人</strong><span>基础洗护 · 柯基</span></div>
+              </div>
+            </article>
+            <article class="card quote" aria-hidden="true">
+              <div class="stars">★★★★★</div>
+              <p>“我们家雪纳瑞胡子很容易洗不干净，这次修得很精神，边角也处理得很利落，拍照特别上镜。”</p>
+              <div class="customer">
+                <div class="avatar">摩</div>
+                <div><strong>摩卡主人</strong><span>精修造型 · 雪纳瑞</span></div>
+              </div>
+            </article>
+            <article class="card quote" aria-hidden="true">
+              <div class="stars">★★★★★</div>
+              <p>“店员会提前确认是否有皮肤敏感和疫苗情况，洗护后还发了护理建议，感觉不是只做一次生意。”</p>
+              <div class="customer">
+                <div class="avatar">桃</div>
+                <div><strong>桃桃主人</strong><span>皮毛护理 · 比熊</span></div>
+              </div>
+            </article>
+            <article class="card quote" aria-hidden="true">
+              <div class="stars">★★★★★</div>
+              <p>“老年狗腿脚不太方便，美容师动作很慢也很稳，全程有耐心。洗完精神状态很好，家里人都放心。”</p>
+              <div class="customer">
+                <div class="avatar">米</div>
+                <div><strong>米粒主人</strong><span>老年犬洗护 · 博美</span></div>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
